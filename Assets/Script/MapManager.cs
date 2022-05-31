@@ -1,10 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-
-public class MapManager : MonoBehaviour
+sealed class MapManager : MonoBehaviour
 {
     #region SingleTon
     private static MapManager instance;
@@ -12,7 +10,7 @@ public class MapManager : MonoBehaviour
     {
         get
         {
-            if(instance == null)
+            if (instance == null)
             {
                 return null;
             }
@@ -22,7 +20,7 @@ public class MapManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
@@ -34,7 +32,6 @@ public class MapManager : MonoBehaviour
     }
     #endregion
 
-
     [Tooltip("ground tile map in grid")] public Tilemap ground;
     [Tooltip("tile base set in tile map")] public TileBase groundTile;
 
@@ -45,14 +42,14 @@ public class MapManager : MonoBehaviour
 
     public Map blankMap;
 
-    private Vector3Int tilePoint;
+    [SerializeField] private Vector3Int tilePoint;
 
     private void Start()
     {
         LoadMap();
 
         ground = ground.GetComponent<Tilemap>();
-        tilePoint = new Vector3Int(-10, 0, 0);
+        tilePoint = new Vector3Int(-8, -1, 0);
     }
     private void LoadMap()
     {
@@ -65,9 +62,9 @@ public class MapManager : MonoBehaviour
 
         for (var i = 0; i < data.Count; i++)
         {
-            int stage = int.Parse(data[i]["stage"].ToString(), System.Globalization.NumberStyles.Integer);
-            int brick = int.Parse(data[i]["brick"].ToString(), System.Globalization.NumberStyles.Integer);
-            int block = int.Parse(data[i]["block"].ToString(), System.Globalization.NumberStyles.Integer);
+            int stage = int.Parse(data[i]["Stage"].ToString(), System.Globalization.NumberStyles.Integer);
+            int brick = int.Parse(data[i]["Brick"].ToString(), System.Globalization.NumberStyles.Integer);
+            int block = int.Parse(data[i]["Block"].ToString(), System.Globalization.NumberStyles.Integer);
             AddMap(stage, brick, block);
         }
     }
@@ -81,7 +78,7 @@ public class MapManager : MonoBehaviour
             block = block,
         };
 
-        switch(map.stage)
+        switch (map.stage)
         {
             case 1:
                 stageOne.Add(map);
@@ -98,9 +95,28 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    private void DrawMap()
+    public void DrawStage(int stageNum)
     {
-        for(int i = 0; i<stageOne.Count; i++)
+        switch (stageNum)
+        {
+            case 1:
+                DrawStageOne();
+                break;
+            case 2:
+                DrawStageTwo();
+                break;
+            case 3:
+                DrawStageThree();
+                break;
+            case 4:
+                DrawStageFour();
+                break;
+        }
+    }
+
+    private void DrawStageOne()
+    {
+        for (int i = 0; i < stageOne.Count; i++)
         {
             if (stageOne[i].block == 1)
             {
@@ -113,5 +129,60 @@ public class MapManager : MonoBehaviour
 
             tilePoint.x += 1;
         }
+    }
+
+    private void DrawStageTwo()
+    {
+        for (int i = 0; i < stageTwo.Count; i++)
+        {
+            if (stageTwo[i].block == 1)
+            {
+                ground.SetTile(ground.WorldToCell(tilePoint), groundTile);
+            }
+            else
+            {
+                ground.SetTile(ground.WorldToCell(tilePoint), null);
+            }
+
+            tilePoint.x += 1;
+        }
+    }
+
+    private void DrawStageThree()
+    {
+        for (int i = 0; i < stageThree.Count; i++)
+        {
+            if (stageThree[i].block == 1)
+            {
+                ground.SetTile(ground.WorldToCell(tilePoint), groundTile);
+            }
+            else
+            {
+                ground.SetTile(ground.WorldToCell(tilePoint), null);
+            }
+
+            tilePoint.x += 1;
+        }
+    }
+    private void DrawStageFour()
+    {
+        for (int i = 0; i < stageFour.Count; i++)
+        {
+            if (stageFour[i].block == 1)
+            {
+                ground.SetTile(ground.WorldToCell(tilePoint), groundTile);
+            }
+            else
+            {
+                ground.SetTile(ground.WorldToCell(tilePoint), null);
+            }
+
+            tilePoint.x += 1;
+        }
+    }
+    public void ResetMap()
+    {
+        tilePoint = new Vector3Int(-10, 0, 0); // tilePoint setting
+        LoadMap();
     }
 }

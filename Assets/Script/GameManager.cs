@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+sealed class GameManager : MonoBehaviour
 {
     #region SingleTon
     private static GameManager instance;
@@ -21,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if(this == null)
+        if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
@@ -32,4 +31,51 @@ public class GameManager : MonoBehaviour
         }
     }
     #endregion
+
+    public int stageIndex = 1;
+
+    // about UI
+    public GameObject startPanel;
+    public GameObject resultPanel;
+
+    public Button startBt;
+    public Button restartBt;
+
+    private void Start()
+    {
+        startPanel.SetActive(true);
+        resultPanel.SetActive(false);
+
+        startBt.onClick.AddListener(GameStart);
+        restartBt.onClick.AddListener(ReGame);
+
+        Time.timeScale = 0; // pause game
+    }
+
+    private void GameStart()
+    {
+        startPanel.SetActive(false);
+        
+        for (int i = 1; i <= 4; i++)
+        {
+            MapManager.Instance.DrawStage(i);
+        }
+        
+        Time.timeScale = 1; // play game
+    }
+
+    private void ReGame()
+    {
+        resultPanel.SetActive(false);
+
+        Time.timeScale = 1; // play game
+    }
+
+    public void GameOver()
+    {
+        resultPanel.SetActive(true);
+        MapManager.Instance.ResetMap();
+
+        Time.timeScale = 0; // pause game
+    }
 }
