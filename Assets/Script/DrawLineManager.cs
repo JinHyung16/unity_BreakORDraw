@@ -44,7 +44,7 @@ public class DrawLineManager : MonoBehaviour
     private EdgeCollider2D edgeCollider;
     private EdgeCollider2D gravityEdgeCollider;
 
-    private List<Vector2> fingerPositions;
+    private List<Vector2> fingerPositions = new List<Vector2>();
 
     private void Update()
     {
