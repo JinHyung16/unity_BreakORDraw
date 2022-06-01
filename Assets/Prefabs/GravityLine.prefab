@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2223689592237295195}
   - component: {fileID: 5891373878588976815}
   - component: {fileID: 6412390397171976154}
+  - component: {fileID: 3904222234683059500}
   m_Layer: 0
   m_Name: GravityLine
   m_TagString: Untagged
@@ -145,7 +146,7 @@ EdgeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.1
   m_Points:
   - {x: -0.07500005, y: 0}
   - {x: 5.075, y: 0}
@@ -174,3 +175,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3904222234683059500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5354165899564879953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3901af4ec95fb704ebe3018546424c90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

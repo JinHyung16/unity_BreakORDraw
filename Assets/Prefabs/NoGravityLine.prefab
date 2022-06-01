@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4361816423245362570}
   - component: {fileID: 896525905979940170}
   - component: {fileID: 4859213833905419710}
+  - component: {fileID: 7020619881826977067}
   m_Layer: 0
   m_Name: NoGravityLine
   m_TagString: Untagged
@@ -128,7 +129,7 @@ LineRenderer:
     textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0
-  m_UseWorldSpace: 0
+  m_UseWorldSpace: 1
   m_Loop: 0
 --- !u!68 &4859213833905419710
 EdgeCollider2D:
@@ -152,3 +153,15 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!114 &7020619881826977067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6404375870240459584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3901af4ec95fb704ebe3018546424c90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
