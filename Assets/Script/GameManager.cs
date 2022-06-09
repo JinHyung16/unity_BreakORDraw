@@ -34,7 +34,9 @@ sealed class GameManager : MonoBehaviour
 
     public int stageIndex = 1;
 
-    [SerializeField] private DrawLineManager drawLineManager; 
+    public DrawLineManager drawLineManager;
+
+    public bool isOver = false;
 
     // about UI
     public GameObject startPanel;
@@ -51,25 +53,28 @@ sealed class GameManager : MonoBehaviour
         startBt.onClick.AddListener(GameStart);
         restartBt.onClick.AddListener(ReGame);
 
+        isOver = false;
+        MapManager.Instance.DrawStage(0);
+
         Time.timeScale = 0; // pause game
     }
 
     private void GameStart()
     {
         startPanel.SetActive(false);
+
         drawLineManager.gameObject.SetActive(true);
-        
-        for (int i = 1; i <= 4; i++)
-        {
-            MapManager.Instance.DrawStage(i);
-        }
-        
+
+        isOver = false;
+
         Time.timeScale = 1; // play game
     }
 
     private void ReGame()
     {
         resultPanel.SetActive(false);
+        drawLineManager.gameObject.SetActive(true);
+        isOver = false;
 
         Time.timeScale = 1; // play game
     }
@@ -77,7 +82,10 @@ sealed class GameManager : MonoBehaviour
     public void GameOver()
     {
         resultPanel.SetActive(true);
+
         drawLineManager.gameObject.SetActive(false);
+
+        isOver = true;
         MapManager.Instance.ResetMap();
 
         Time.timeScale = 0; // pause game

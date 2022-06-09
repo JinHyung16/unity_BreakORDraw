@@ -44,6 +44,8 @@ sealed class MapManager : MonoBehaviour
 
     [SerializeField] private Vector3Int tilePoint;
 
+    public Transform itemPoint;
+
     private void Start()
     {
         LoadMap();
@@ -65,17 +67,19 @@ sealed class MapManager : MonoBehaviour
             int stage = int.Parse(data[i]["Stage"].ToString(), System.Globalization.NumberStyles.Integer);
             int brick = int.Parse(data[i]["Brick"].ToString(), System.Globalization.NumberStyles.Integer);
             int block = int.Parse(data[i]["Block"].ToString(), System.Globalization.NumberStyles.Integer);
-            AddMap(stage, brick, block);
+            int flag = int.Parse(data[i]["Flag"].ToString(), System.Globalization.NumberStyles.Integer);
+            AddMap(stage, brick, block, flag);
         }
     }
 
-    private void AddMap(int stage, int brick, int block)
+    private void AddMap(int stage, int brick, int block, int flag)
     {
         Map map = new Map(blankMap)
         {
             stage = stage,
             brick = brick,
             block = block,
+            flag = flag,
         };
 
         switch (map.stage)
@@ -99,16 +103,16 @@ sealed class MapManager : MonoBehaviour
     {
         switch (stageNum)
         {
-            case 1:
+            case 0:
                 DrawStageOne();
                 break;
-            case 2:
+            case 1:
                 DrawStageTwo();
                 break;
-            case 3:
+            case 2:
                 DrawStageThree();
                 break;
-            case 4:
+            case 3:
                 DrawStageFour();
                 break;
         }
@@ -120,11 +124,27 @@ sealed class MapManager : MonoBehaviour
         {
             if (stageOne[i].block == 1)
             {
-                ground.SetTile(ground.WorldToCell(tilePoint), groundTile);
+                ground.SetTile(ground.WorldToCell(new Vector3Int(tilePoint.x, -1, tilePoint.z)), groundTile);
             }
             else
             {
-                ground.SetTile(ground.WorldToCell(tilePoint), null);
+                ground.SetTile(ground.WorldToCell(new Vector3Int(tilePoint.x, -1, tilePoint.z)), null);
+            }
+
+            if(stageOne[i].brick == 1)
+            {
+                GameObject brick = PoolManager.Instance.MakeObj("brick");
+                brick.transform.SetParent(itemPoint);
+                brick.transform.position = new Vector3(tilePoint.x, 0.4f, tilePoint.z);
+                brick.SetActive(true);
+            }
+
+            if(stageOne[i].flag == 1)
+            {
+                GameObject flag = PoolManager.Instance.MakeObj("flag");
+                flag.transform.SetParent(itemPoint);
+                flag.transform.position = new Vector3(tilePoint.x, 0.4f, tilePoint.z);
+                flag.SetActive(true);
             }
 
             tilePoint.x += 1;
@@ -133,6 +153,8 @@ sealed class MapManager : MonoBehaviour
 
     private void DrawStageTwo()
     {
+        // tilePoint = new Vector3Int(25, -1, 0);
+          
         for (int i = 0; i < stageTwo.Count; i++)
         {
             if (stageTwo[i].block == 1)
@@ -144,12 +166,30 @@ sealed class MapManager : MonoBehaviour
                 ground.SetTile(ground.WorldToCell(tilePoint), null);
             }
 
+
+            if (stageTwo[i].brick == 1)
+            {
+                GameObject brick = PoolManager.Instance.MakeObj("brick");
+                brick.transform.SetParent(itemPoint);
+                brick.transform.position = new Vector3(tilePoint.x, 0.4f, tilePoint.z);
+                brick.SetActive(true);
+            }
+
+            if (stageTwo[i].flag == 1)
+            {
+                GameObject flag = PoolManager.Instance.MakeObj("flag");
+                flag.transform.SetParent(itemPoint);
+                flag.transform.position = new Vector3(tilePoint.x, 0.4f, tilePoint.z);
+                flag.SetActive(true);
+            }
+
             tilePoint.x += 1;
         }
     }
 
     private void DrawStageThree()
     {
+        // tilePoint = new Vector3Int(25, -1, 0);
         for (int i = 0; i < stageThree.Count; i++)
         {
             if (stageThree[i].block == 1)
@@ -161,11 +201,29 @@ sealed class MapManager : MonoBehaviour
                 ground.SetTile(ground.WorldToCell(tilePoint), null);
             }
 
+
+            if (stageThree[i].brick == 1)
+            {
+                GameObject brick = PoolManager.Instance.MakeObj("brick");
+                brick.transform.SetParent(itemPoint);
+                brick.transform.position = new Vector3(tilePoint.x, 0.4f, tilePoint.z);
+                brick.SetActive(true);
+            }
+
+            if (stageThree[i].flag == 1)
+            {
+                GameObject flag = PoolManager.Instance.MakeObj("flag");
+                flag.transform.SetParent(itemPoint);
+                flag.transform.position = new Vector3(tilePoint.x, 0.4f, tilePoint.z);
+                flag.SetActive(true);
+            }
+
             tilePoint.x += 1;
         }
     }
     private void DrawStageFour()
     {
+        // tilePoint = new Vector3Int(25, -1, 0);
         for (int i = 0; i < stageFour.Count; i++)
         {
             if (stageFour[i].block == 1)
@@ -175,6 +233,23 @@ sealed class MapManager : MonoBehaviour
             else
             {
                 ground.SetTile(ground.WorldToCell(tilePoint), null);
+            }
+
+
+            if (stageFour[i].brick == 1)
+            {
+                GameObject brick = PoolManager.Instance.MakeObj("brick");
+                brick.transform.SetParent(itemPoint);
+                brick.transform.position = new Vector3(tilePoint.x, 0.4f, tilePoint.z);
+                brick.SetActive(true);
+            }
+
+            if (stageFour[i].flag == 1)
+            {
+                GameObject flag = PoolManager.Instance.MakeObj("flag");
+                flag.transform.SetParent(itemPoint);
+                flag.transform.position = new Vector3(tilePoint.x, 0.4f, tilePoint.z);
+                flag.SetActive(true);
             }
 
             tilePoint.x += 1;

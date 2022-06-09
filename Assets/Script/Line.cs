@@ -6,9 +6,13 @@ public class Line : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Border")
+
+        if (collision.gameObject.CompareTag("Border"))
         {
-            Destroy(gameObject);
+            if(collision.gameObject.name == "Left")
+            {
+                this.gameObject.SetActive(false);
+            }
         }
     }
 }
