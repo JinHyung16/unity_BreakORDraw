@@ -54,7 +54,7 @@ sealed class GameManager : MonoBehaviour
         restartBt.onClick.AddListener(ReGame);
 
         isOver = false;
-        MapManager.Instance.DrawStage(0);
+        MapManager.Instance.DrawStage(0); // draw stage one
 
         Time.timeScale = 0; // pause game
     }

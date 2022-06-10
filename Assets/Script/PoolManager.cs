@@ -37,11 +37,9 @@ public class PoolManager : MonoBehaviour
     #endregion
 
     public GameObject brickPrefab;
-    public GameObject flagPrefab;
     public GameObject linePrefab;
 
     private GameObject[] bricks;
-    private GameObject[] flags;
     private GameObject[] lines;
 
     private GameObject[] targets;
@@ -49,7 +47,6 @@ public class PoolManager : MonoBehaviour
     private void InitArray()
     {
         bricks = new GameObject[100];
-        flags = new GameObject[5];
         lines = new GameObject[50];
     }
 
@@ -62,14 +59,6 @@ public class PoolManager : MonoBehaviour
             bricks[i].SetActive(false);
 
             DontDestroyOnLoad(bricks[i]);
-        }
-        for (int i = 0; i < flags.Length; i++)
-        {
-            flags[i] = Instantiate(flagPrefab);
-            flags[i].name = "Flag";
-            flags[i].SetActive(false);
-
-            DontDestroyOnLoad(flags[i]);
         }
         for(int i = 0; i < lines.Length; i++)
         {
@@ -87,9 +76,6 @@ public class PoolManager : MonoBehaviour
         {
             case "brick":
                 targets = bricks;
-                break;
-            case "flag":
-                targets = flags;
                 break;
             case "line":
                 targets = lines;

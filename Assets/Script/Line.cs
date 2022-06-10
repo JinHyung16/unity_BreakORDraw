@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Line : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    // 선이 모두 왼쪽 보더와 다 만나서 지나가면 호출
+    private void OnTriggerExit2D(Collider2D collision)
     {
 
         if (collision.gameObject.CompareTag("Border"))

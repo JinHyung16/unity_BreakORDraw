@@ -557,7 +557,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 206005716}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -600,8 +600,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1dded91387974f4da55820cc0744412, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ground: {fileID: 701258066}
+  groundMap: {fileID: 701258066}
+  flagMap: {fileID: 1546412304}
   groundTile: {fileID: 11400000, guid: 205caf988e8e3ca4e8b2e835579bcf69, type: 2}
+  flagTile: {fileID: 11400000, guid: ef308aa9cebe63249a9086a480e0f5e4, type: 2}
   stageOne: []
   stageTwo: []
   stageThree: []
@@ -644,11 +646,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridMap: {fileID: 701258063}
+  flagMap: {fileID: 1546412300}
   background: {fileID: 917705230}
   clouds: {fileID: 340620531}
   itemPoint: {fileID: 732942482}
   linePoint: {fileID: 1921091991}
-  scollSpeed: 0.8
+  scollSpeed: 1.2
 --- !u!1 &315179834
 GameObject:
   m_ObjectHideFlags: 0
@@ -2463,7 +2466,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1159687931}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -2845,7 +2848,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1532421829}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -2952,8 +2955,9 @@ GameObject:
   - component: {fileID: 1546412304}
   - component: {fileID: 1546412303}
   - component: {fileID: 1546412302}
+  - component: {fileID: 1546412305}
   m_Layer: 0
-  m_Name: BrickTileMap
+  m_Name: FlagTileMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3075,6 +3079,18 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1546412305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546412300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 548b86c5a1737eb45a716c71a9c95d27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1628225936
 GameObject:
   m_ObjectHideFlags: 0
@@ -3285,7 +3301,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brickPrefab: {fileID: 2947777167551221771, guid: 8850a1de80afa2948b911baf9965c2c2, type: 3}
-  flagPrefab: {fileID: 8773063439530761752, guid: 542a4be4583258749b460e4c459f3595, type: 3}
   linePrefab: {fileID: 6404375870240459584, guid: b914cea915df2914e8ac32cb37061850, type: 3}
 --- !u!4 &1778119642
 Transform:

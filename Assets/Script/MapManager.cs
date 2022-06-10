@@ -32,8 +32,11 @@ sealed class MapManager : MonoBehaviour
     }
     #endregion
 
-    [Tooltip("ground tile map in grid")] public Tilemap ground;
+    [Tooltip("ground tile map in grid")] public Tilemap groundMap;
+    [Tooltip("flag tile map in grid")] public Tilemap flagMap;
+
     [Tooltip("tile base set in tile map")] public TileBase groundTile;
+    [Tooltip("tile base set in tile map")] public TileBase flagTile;
 
     [SerializeField] private List<Map> stageOne;
     [SerializeField] private List<Map> stageTwo;
@@ -50,7 +53,9 @@ sealed class MapManager : MonoBehaviour
     {
         LoadMap();
 
-        ground = ground.GetComponent<Tilemap>();
+        groundMap = groundMap.GetComponent<Tilemap>();
+        flagMap = flagMap.GetComponent<Tilemap>();
+
         tilePoint = new Vector3Int(-8, -1, 0);
     }
     private void LoadMap()
@@ -124,27 +129,28 @@ sealed class MapManager : MonoBehaviour
         {
             if (stageOne[i].block == 1)
             {
-                ground.SetTile(ground.WorldToCell(new Vector3Int(tilePoint.x, -1, tilePoint.z)), groundTile);
+                groundMap.SetTile(groundMap.WorldToCell(new Vector3Int(tilePoint.x, -1, tilePoint.z)), groundTile);
             }
             else
             {
-                ground.SetTile(ground.WorldToCell(new Vector3Int(tilePoint.x, -1, tilePoint.z)), null);
+                groundMap.SetTile(groundMap.WorldToCell(new Vector3Int(tilePoint.x, -1, tilePoint.z)), null);
             }
 
-            if(stageOne[i].brick == 1)
+            if(stageOne[i].flag == 1)
+            {
+                flagMap.SetTile(groundMap.WorldToCell(new Vector3Int(tilePoint.x, 0, tilePoint.z)), flagTile);
+            }
+            else
+            {
+                flagMap.SetTile(groundMap.WorldToCell(new Vector3Int(tilePoint.x, 0, tilePoint.z)), null);
+            }
+
+            if (stageOne[i].brick == 1)
             {
                 GameObject brick = PoolManager.Instance.MakeObj("brick");
                 brick.transform.SetParent(itemPoint);
                 brick.transform.position = new Vector3(tilePoint.x, 0.4f, tilePoint.z);
                 brick.SetActive(true);
-            }
-
-            if(stageOne[i].flag == 1)
-            {
-                GameObject flag = PoolManager.Instance.MakeObj("flag");
-                flag.transform.SetParent(itemPoint);
-                flag.transform.position = new Vector3(tilePoint.x, 0.4f, tilePoint.z);
-                flag.SetActive(true);
             }
 
             tilePoint.x += 1;
@@ -153,19 +159,27 @@ sealed class MapManager : MonoBehaviour
 
     private void DrawStageTwo()
     {
-        // tilePoint = new Vector3Int(25, -1, 0);
-          
+        tilePoint = new Vector3Int(15, -1, 0);
+
         for (int i = 0; i < stageTwo.Count; i++)
         {
             if (stageTwo[i].block == 1)
             {
-                ground.SetTile(ground.WorldToCell(tilePoint), groundTile);
+                groundMap.SetTile(groundMap.WorldToCell(tilePoint), groundTile);
             }
             else
             {
-                ground.SetTile(ground.WorldToCell(tilePoint), null);
+                groundMap.SetTile(groundMap.WorldToCell(tilePoint), null);
             }
 
+            if (stageTwo[i].flag == 1)
+            {
+                flagMap.SetTile(groundMap.WorldToCell(new Vector3Int(tilePoint.x, 0, tilePoint.z)), flagTile);
+            }
+            else
+            {
+                flagMap.SetTile(groundMap.WorldToCell(new Vector3Int(tilePoint.x, 0, tilePoint.z)), null);
+            }
 
             if (stageTwo[i].brick == 1)
             {
@@ -175,13 +189,6 @@ sealed class MapManager : MonoBehaviour
                 brick.SetActive(true);
             }
 
-            if (stageTwo[i].flag == 1)
-            {
-                GameObject flag = PoolManager.Instance.MakeObj("flag");
-                flag.transform.SetParent(itemPoint);
-                flag.transform.position = new Vector3(tilePoint.x, 0.4f, tilePoint.z);
-                flag.SetActive(true);
-            }
 
             tilePoint.x += 1;
         }
@@ -189,18 +196,26 @@ sealed class MapManager : MonoBehaviour
 
     private void DrawStageThree()
     {
-        // tilePoint = new Vector3Int(25, -1, 0);
+        tilePoint = new Vector3Int(15, -1, 0);
         for (int i = 0; i < stageThree.Count; i++)
         {
             if (stageThree[i].block == 1)
             {
-                ground.SetTile(ground.WorldToCell(tilePoint), groundTile);
+                groundMap.SetTile(groundMap.WorldToCell(tilePoint), groundTile);
             }
             else
             {
-                ground.SetTile(ground.WorldToCell(tilePoint), null);
+                groundMap.SetTile(groundMap.WorldToCell(tilePoint), null);
             }
 
+            if (stageThree[i].flag == 1)
+            {
+                flagMap.SetTile(groundMap.WorldToCell(new Vector3Int(tilePoint.x, 0, tilePoint.z)), flagTile);
+            }
+            else
+            {
+                flagMap.SetTile(groundMap.WorldToCell(new Vector3Int(tilePoint.x, 0, tilePoint.z)), null);
+            }
 
             if (stageThree[i].brick == 1)
             {
@@ -210,31 +225,31 @@ sealed class MapManager : MonoBehaviour
                 brick.SetActive(true);
             }
 
-            if (stageThree[i].flag == 1)
-            {
-                GameObject flag = PoolManager.Instance.MakeObj("flag");
-                flag.transform.SetParent(itemPoint);
-                flag.transform.position = new Vector3(tilePoint.x, 0.4f, tilePoint.z);
-                flag.SetActive(true);
-            }
-
             tilePoint.x += 1;
         }
     }
     private void DrawStageFour()
     {
-        // tilePoint = new Vector3Int(25, -1, 0);
+        tilePoint = new Vector3Int(15, -1, 0);
         for (int i = 0; i < stageFour.Count; i++)
         {
             if (stageFour[i].block == 1)
             {
-                ground.SetTile(ground.WorldToCell(tilePoint), groundTile);
+                groundMap.SetTile(groundMap.WorldToCell(tilePoint), groundTile);
             }
             else
             {
-                ground.SetTile(ground.WorldToCell(tilePoint), null);
+                groundMap.SetTile(groundMap.WorldToCell(tilePoint), null);
             }
 
+            if (stageFour[i].flag == 1)
+            {
+                flagMap.SetTile(groundMap.WorldToCell(new Vector3Int(tilePoint.x, 0, tilePoint.z)), flagTile);
+            }
+            else
+            {
+                flagMap.SetTile(groundMap.WorldToCell(new Vector3Int(tilePoint.x, 0, tilePoint.z)), null);
+            }
 
             if (stageFour[i].brick == 1)
             {
@@ -242,14 +257,6 @@ sealed class MapManager : MonoBehaviour
                 brick.transform.SetParent(itemPoint);
                 brick.transform.position = new Vector3(tilePoint.x, 0.4f, tilePoint.z);
                 brick.SetActive(true);
-            }
-
-            if (stageFour[i].flag == 1)
-            {
-                GameObject flag = PoolManager.Instance.MakeObj("flag");
-                flag.transform.SetParent(itemPoint);
-                flag.transform.position = new Vector3(tilePoint.x, 0.4f, tilePoint.z);
-                flag.SetActive(true);
             }
 
             tilePoint.x += 1;

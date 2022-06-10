@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class MoveMap : MonoBehaviour
 {
-    public GameObject gridMap;
-    public GameObject background;
-    public GameObject clouds;
-    public GameObject itemPoint;
-    public GameObject linePoint;
+    [SerializeField] private GameObject gridMap;
+    [SerializeField] private GameObject flagMap;
+    [SerializeField] private GameObject background;
+    [SerializeField] private GameObject clouds;
+    [SerializeField] private GameObject itemPoint;
+    [SerializeField] private GameObject linePoint;
 
     [Range(0, 15)] [SerializeField] private float scollSpeed = 0.8f;
 
@@ -19,7 +20,7 @@ public class MoveMap : MonoBehaviour
     }
     private void Update()
     {
-        GridMapMove();
+        MapMove();
         BackGroundMove();
 
         ResetMap();
@@ -30,9 +31,10 @@ public class MoveMap : MonoBehaviour
         CloudsMove();
     }
 
-    private void GridMapMove()
+    private void MapMove()
     {
         gridMap.transform.Translate(Vector2.left * scollSpeed * Time.deltaTime);
+        flagMap.transform.Translate(Vector2.left * scollSpeed * Time.deltaTime);
         itemPoint.transform.Translate(Vector2.left * scollSpeed * Time.deltaTime);
         linePoint.transform.Translate(Vector2.left * scollSpeed * Time.deltaTime);
     }
