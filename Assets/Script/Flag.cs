@@ -26,7 +26,7 @@ public class Flag : MonoBehaviour
         {
             if(collision.gameObject.name == "Right")
             {
-                //this.gameObject.SetActive(false);
+                this.gameObject.SetActive(false);
             }
         }
     }

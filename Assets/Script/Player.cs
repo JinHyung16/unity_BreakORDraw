@@ -2,12 +2,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-
     Animator anim;
 
     [SerializeField] private LayerMask touchLayer;
     [SerializeField] private LayerMask lineLayer;
-    private bool isAttack = false;
 
     private void Start()
     {
@@ -17,7 +15,6 @@ public class Player : MonoBehaviour
     private void Update()
     {
         BreakSystem();
-        AnimationController();
         RayPlayerLine();
     }
 
@@ -31,12 +28,17 @@ public class Player : MonoBehaviour
                 GameManager.Instance.GameOver();
             }
         }
+        if(collision.CompareTag("Brick"))
+        {
+            anim.SetTrigger("isDie");
+            GameManager.Instance.GameOver();
+        }
     }
 
     private void BreakSystem()
     {
         if (Input.GetMouseButtonDown(1))
-        {       
+        {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, 10.0f, touchLayer);
             if (hit.collider != null)
             {
@@ -44,22 +46,10 @@ public class Player : MonoBehaviour
                 {
                     Debug.Log("Brick Touch");
                     hit.collider.gameObject.GetComponent<Brick>().BrickController();
-                    isAttack = true;
                 }
             }
-        }
-    }
 
-    private void AnimationController()
-    {
-        if(isAttack)
-        {
-            anim.SetBool("isAttack", true);
-            isAttack = false;
-        }
-        else
-        {
-            anim.SetBool("isAttack", false);
+            anim.SetTrigger("isAttack");
         }
     }
 
