@@ -35,6 +35,7 @@ sealed class GameManager : MonoBehaviour
     public int stageIndex = 1;
 
     public DrawLineManager drawLineManager;
+    public GameObject player;
 
     public bool isOver = false;
 
@@ -74,6 +75,9 @@ sealed class GameManager : MonoBehaviour
     {
         resultPanel.SetActive(false);
         drawLineManager.gameObject.SetActive(true);
+        player.SetActive(true);
+        player.transform.position = new Vector2(-7.18f, 1.8f);
+        player.transform.rotation = Quaternion.identity;
         isOver = false;
 
         Time.timeScale = 1; // play game
@@ -84,6 +88,7 @@ sealed class GameManager : MonoBehaviour
         resultPanel.SetActive(true);
 
         drawLineManager.gameObject.SetActive(false);
+        player.SetActive(false);
 
         isOver = true;
         MapManager.Instance.ResetMap();

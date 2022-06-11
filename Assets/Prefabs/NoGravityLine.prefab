@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4859213833905419710}
   - component: {fileID: 7020619881826977067}
   - component: {fileID: 397854203738885876}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: NoGravityLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5891373878588976815}
   - component: {fileID: 6412390397171976154}
   - component: {fileID: 3904222234683059500}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GravityLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}

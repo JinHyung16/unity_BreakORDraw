@@ -2374,6 +2374,9 @@ MonoBehaviour:
   touchLayer:
     serializedVersion: 2
     m_Bits: 64
+  lineLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!50 &1134288824
 Rigidbody2D:
   serializedVersion: 4
@@ -2696,6 +2699,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageIndex: 1
   drawLineManager: {fileID: 1965811369}
+  player: {fileID: 1134288818}
   isOver: 0
   startPanel: {fileID: 23245280}
   resultPanel: {fileID: 1521167778}
@@ -3391,7 +3395,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1921091992}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LinePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

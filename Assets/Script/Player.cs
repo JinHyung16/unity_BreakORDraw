@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+
     Animator anim;
 
     [SerializeField] private LayerMask touchLayer;
+    [SerializeField] private LayerMask lineLayer;
     private bool isAttack = false;
 
     private void Start()
@@ -16,13 +18,14 @@ public class Player : MonoBehaviour
     {
         BreakSystem();
         AnimationController();
+        RayPlayerLine();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Border"))
         {
-            if (collision.gameObject.name == "Down")
+            if (collision.gameObject.name == "Down" || collision.gameObject.name == "Left")
             {
                 anim.SetTrigger("isDie");
                 GameManager.Instance.GameOver();
@@ -57,6 +60,18 @@ public class Player : MonoBehaviour
         else
         {
             anim.SetBool("isAttack", false);
+        }
+    }
+
+    private void RayPlayerLine()
+    {
+        Ray ray = new Ray(transform.position, new Vector2(2f,-1f));
+        Debug.DrawRay(ray.origin, ray.direction * 5f, Color.red, 5f);
+
+        if (Physics2D.Raycast(transform.position, new Vector2(2f, -1f), 10.0f, lineLayer))
+        {
+            Rigidbody2D rigid = gameObject.GetComponent<Rigidbody2D>();
+            rigid.AddForce(Vector3.up * 0.05f, ForceMode2D.Impulse);
         }
     }
 }
