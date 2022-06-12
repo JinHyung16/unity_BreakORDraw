@@ -5,7 +5,6 @@ using UnityEngine;
 public class MoveMap : MonoBehaviour
 {
     [SerializeField] private GameObject gridMap;
-    [SerializeField] private GameObject flagMap;
     [SerializeField] private GameObject background;
     [SerializeField] private GameObject clouds;
     [SerializeField] private GameObject itemPoint;
@@ -15,15 +14,15 @@ public class MoveMap : MonoBehaviour
 
     private void Start()
     {
-        gridMap.transform.position = Vector2.zero;
-        background.transform.position = Vector2.zero;
+        gridMap.transform.position = new Vector3(0, 0, 0);
+
+        background.transform.position = new Vector3(0, 0, 0);
+        clouds.transform.position = new Vector3(0, 0, 0);
     }
     private void Update()
     {
         MapMove();
         BackGroundMove();
-
-        ResetMap();
     }
 
     private void LateUpdate()
@@ -34,7 +33,7 @@ public class MoveMap : MonoBehaviour
     private void MapMove()
     {
         gridMap.transform.Translate(Vector2.left * scollSpeed * Time.deltaTime);
-        flagMap.transform.Translate(Vector2.left * scollSpeed * Time.deltaTime);
+
         itemPoint.transform.Translate(Vector2.left * scollSpeed * Time.deltaTime);
         linePoint.transform.Translate(Vector2.left * scollSpeed * Time.deltaTime);
     }
@@ -55,13 +54,11 @@ public class MoveMap : MonoBehaviour
         }
     }
 
-    private void ResetMap()
+    public void ResetMap()
     {
-        if (GameManager.Instance.isOver)
-        {
-            gridMap.transform.position = Vector2.zero;
-            background.transform.position = Vector2.zero;
-            clouds.transform.position = Vector2.zero;
-        }
+        gridMap.transform.position = new Vector3(0, 0, 0);
+
+        background.transform.position = new Vector3(0, 0, 0);
+        clouds.transform.position = new Vector3(0, 0, 0);
     }
 }

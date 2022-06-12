@@ -1,8 +1,8 @@
 using UnityEngine;
 using System.Collections;
-using System;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 sealed class GameManager : MonoBehaviour
 {
@@ -36,10 +36,11 @@ sealed class GameManager : MonoBehaviour
     #endregion
 
     [SerializeField] private DrawLineManager drawLineManager;
-    [SerializeField] private GameObject player;
+
+    public GameObject player;
 
     [Range(0, 1.0f)] [SerializeField] private float overTime = 0.5f;
-    public bool isOver = false;
+    public bool isDraw = false;
 
     // about UI
     public GameObject startPanel;
@@ -56,19 +57,31 @@ sealed class GameManager : MonoBehaviour
         startBt.onClick.AddListener(GameStart);
         restartBt.onClick.AddListener(ReGame);
 
-        isOver = false;
         MapManager.Instance.DrawStage(0); // draw stage one
 
         Time.timeScale = 0; // pause game
     }
 
+    private void Update()
+    {
+        if(isDraw)
+        {
+            DrawMap();
+        }
+    }
+
+    private void DrawMap()
+    {
+        int index = Random.Range(1, 4);
+        MapManager.Instance.DrawStage(index);
+        Debug.Log(index);
+        isDraw = false;
+    }
     private void GameStart()
     {
         startPanel.SetActive(false);
 
         drawLineManager.gameObject.SetActive(true);
-
-        isOver = false;
 
         player.SetActive(true);
         player.transform.position = new Vector2(-7.18f, 1.8f);
@@ -89,7 +102,7 @@ sealed class GameManager : MonoBehaviour
         player.transform.position = new Vector2(-7.18f, 1.8f);
         player.transform.rotation = Quaternion.identity;
 
-        isOver = false;
+        MapManager.Instance.DrawStage(0); // draw stage one
 
         Time.timeScale = 1; // play game
     }
@@ -102,11 +115,14 @@ sealed class GameManager : MonoBehaviour
     IEnumerator Over()
     {
         yield return Cashing.YieldInstruction.WaitForSeconds(overTime);
+
         resultPanel.SetActive(true);
         drawLineManager.gameObject.SetActive(false);
         player.SetActive(false);
-        isOver = true;
+
         MapManager.Instance.ResetMap();
+        PoolManager.Instance.ResetObject();
+
         Time.timeScale = 0; // pause game
     }
 }

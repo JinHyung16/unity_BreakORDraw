@@ -10,12 +10,7 @@ public class Flag : MonoBehaviour
         {
             if (collision.gameObject.name == "Right")
             {
-                int index = Random.Range(1, 4);
-                if (!GameManager.Instance.isOver)
-                {
-                    MapManager.Instance.DrawStage(index);
-                    Debug.Log(index);
-                }
+                GameManager.Instance.isDraw = true;
             }
         }
     }
@@ -24,8 +19,9 @@ public class Flag : MonoBehaviour
     {
         if(collision.CompareTag("Border"))
         {
-            if(collision.gameObject.name == "Right")
+            if (collision.gameObject.name == "Right")
             {
+                this.gameObject.transform.SetParent(null);
                 this.gameObject.SetActive(false);
             }
         }
