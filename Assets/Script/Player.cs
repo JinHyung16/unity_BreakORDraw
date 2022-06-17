@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    Rigidbody2D rigid2d;
     Animator anim;
 
     [SerializeField] private LayerMask touchLayer;
@@ -9,6 +10,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        rigid2d = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
 
@@ -55,13 +57,16 @@ public class Player : MonoBehaviour
 
     private void RayPlayerLine()
     {
-        Ray ray = new Ray(transform.position, new Vector2(2f,-1f));
-        Debug.DrawRay(ray.origin, ray.direction * 5f, Color.red, 5f);
+        Debug.DrawRay(new Vector2(this.transform.position.x + 2.0f, this.transform.position.y), Vector2.down * 10.0f, Color.red, 5f);
 
-        if (Physics2D.Raycast(transform.position, new Vector2(2f, -1f), 10.0f, lineLayer))
+        RaycastHit2D hit = Physics2D.Raycast(new Vector2(this.transform.position.x + 2.0f, this.transform.position.y), Vector2.down, 10.0f, lineLayer);
+        if (hit.collider != null)
         {
-            Rigidbody2D rigid = gameObject.GetComponent<Rigidbody2D>();
-            rigid.AddForce(Vector3.up * 0.05f, ForceMode2D.Impulse);
+            if (hit.collider.CompareTag("Line"))
+            {
+                Debug.Log("line Ãæµ¹");
+                rigid2d.AddForce(Vector3.up * 0.05f, ForceMode2D.Force);
+            }
         }
     }
 }

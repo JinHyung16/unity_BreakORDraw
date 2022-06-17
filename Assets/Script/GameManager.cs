@@ -35,6 +35,10 @@ sealed class GameManager : MonoBehaviour
     }
     #endregion
 
+    AudioSource audio;
+
+    public AudioClip startBGM;
+
     [SerializeField] private DrawLineManager drawLineManager;
 
     public GameObject player;
@@ -51,6 +55,8 @@ sealed class GameManager : MonoBehaviour
 
     private void Start()
     {
+        audio = GetComponent<AudioSource>();
+        BGM_Play("start");
         startPanel.SetActive(true);
         resultPanel.SetActive(false);
 
@@ -77,6 +83,22 @@ sealed class GameManager : MonoBehaviour
         Debug.Log(index);
         isDraw = false;
     }
+
+    private void BGM_Play(string name)
+    {
+        switch(name)
+        {
+            case "start":
+                audio.clip = startBGM;
+                break;
+            default:
+                audio.clip = null;
+                break;
+        }
+
+        audio.Play();
+    }
+
     private void GameStart()
     {
         startPanel.SetActive(false);
@@ -86,6 +108,8 @@ sealed class GameManager : MonoBehaviour
         player.SetActive(true);
         player.transform.position = new Vector2(-7.18f, 1.8f);
         player.transform.rotation = Quaternion.identity;
+
+        BGM_Play("none");
 
         Time.timeScale = 1; // play game
     }
