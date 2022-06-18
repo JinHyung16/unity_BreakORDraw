@@ -10,8 +10,8 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        rigid2d = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+        rigid2d = this.GetComponent<Rigidbody2D>();
+        anim = this.GetComponent<Animator>();
     }
 
     private void Update()
@@ -59,13 +59,13 @@ public class Player : MonoBehaviour
     {
         Debug.DrawRay(new Vector2(this.transform.position.x + 2.0f, this.transform.position.y), Vector2.down * 10.0f, Color.red, 5f);
 
-        RaycastHit2D hit = Physics2D.Raycast(new Vector2(this.transform.position.x + 2.0f, this.transform.position.y), Vector2.down, 10.0f, lineLayer);
+        RaycastHit2D hit = Physics2D.Raycast(new Vector2(this.transform.position.x + 1.0f, this.transform.position.y), Vector2.down, 10.0f, lineLayer);
         if (hit.collider != null)
         {
             if (hit.collider.CompareTag("Line"))
             {
                 Debug.Log("line Ãæµ¹");
-                rigid2d.AddForce(Vector3.up * 0.05f, ForceMode2D.Force);
+                rigid2d.AddForce(Vector3.up * 1.3f, ForceMode2D.Force);
             }
         }
     }

@@ -40,40 +40,49 @@ public class DrawLineManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            CreateLine();
+            if(Camera.main.ScreenToWorldPoint(Input.mousePosition).y > 0)
+            {
+                CreateLine();
+            }
         }
 
         if (Input.GetMouseButton(0))
         {
-            Vector2 tempFingerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (Vector2.Distance(tempFingerPos, fingerPositions[fingerPositions.Count - 1]) > 3f)
+            if (Camera.main.ScreenToWorldPoint(Input.mousePosition).y > 0 && lineRenderer != null)
             {
-                if(fingerPositions.Count == 2)
+                Vector2 tempFingerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                if (Vector2.Distance(tempFingerPos, fingerPositions[fingerPositions.Count - 1]) > 1f)
                 {
-                    Debug.Log(Vector2.Angle(fingerPositions[0], tempFingerPos));
-                    // Measure the angle between the first and second points
-                    if (Vector2.Angle(fingerPositions[0], tempFingerPos) < 45.0f)
+                    if (fingerPositions.Count == 2)
                     {
-                        degree = 0;
+                        Debug.Log(Vector2.Angle(fingerPositions[0], tempFingerPos));
+                        // Measure the angle between the first and second points
+                        if (Vector2.Angle(fingerPositions[0], tempFingerPos) < 45.0f)
+                        {
+                            degree = 0;
+                        }
+                        /*
+                        else if (Vector2.Angle(fingerPositions[0], tempFingerPos) >= 30.0f && Vector2.Angle(fingerPositions[0], tempFingerPos) < 60.0f)
+                        {
+                            degree = 45;
+                        }
+                        */
+                        else
+                        {
+                            degree = 90;
+                        }
                     }
-                    /*
-                    else if (Vector2.Angle(fingerPositions[0], tempFingerPos) >= 30.0f && Vector2.Angle(fingerPositions[0], tempFingerPos) < 60.0f)
-                    {
-                        degree = 45;
-                    }
-                    */
-                    else
-                    {
-                        degree = 90;
-                    }
+                    UpdateLine(tempFingerPos);
                 }
-                UpdateLine(tempFingerPos);
             }
         }
 
         if (Input.GetMouseButtonUp(0))
         {
-            currentLine.transform.SetParent(linePoint);
+            if (lineRenderer != null)
+            {
+                currentLine.transform.SetParent(linePoint);
+            }
         }
     }
 
