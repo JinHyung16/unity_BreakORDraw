@@ -37,6 +37,8 @@ sealed class GameManager : MonoBehaviour
 
     AudioSource audio;
 
+    [SerializeField] private float curTime = 0.0f;
+    [SerializeField] private float startTime = 0.0f;
     public AudioClip startBGM;
 
     [SerializeField] private DrawLineManager drawLineManager;
@@ -53,6 +55,8 @@ sealed class GameManager : MonoBehaviour
     public Button startBt;
     public Button restartBt;
 
+    public Text timerText;
+
     private void Start()
     {
         audio = GetComponent<AudioSource>();
@@ -65,6 +69,8 @@ sealed class GameManager : MonoBehaviour
 
         MapManager.Instance.DrawStage(0); // draw stage one
 
+        startTime = Time.time;
+
         Time.timeScale = 0; // pause game
     }
 
@@ -74,6 +80,8 @@ sealed class GameManager : MonoBehaviour
         {
             DrawMap();
         }
+
+        Timer();
     }
 
     private void DrawMap()
@@ -82,6 +90,11 @@ sealed class GameManager : MonoBehaviour
         MapManager.Instance.DrawStage(index);
         Debug.Log(index);
         isDraw = false;
+    }
+    private void Timer()
+    {
+        curTime += (Time.deltaTime - startTime);
+        timerText.text = curTime.ToString("F2");
     }
 
     private void BGM_Play(string name)
@@ -111,6 +124,8 @@ sealed class GameManager : MonoBehaviour
 
         BGM_Play("none");
 
+        curTime = 0.0f;
+
         Time.timeScale = 1; // play game
     }
 
@@ -127,6 +142,8 @@ sealed class GameManager : MonoBehaviour
         player.transform.rotation = Quaternion.identity;
 
         MapManager.Instance.DrawStage(0); // draw stage one
+
+        curTime = 0.0f;
 
         Time.timeScale = 1; // play game
     }
@@ -146,6 +163,8 @@ sealed class GameManager : MonoBehaviour
 
         MapManager.Instance.ResetMap();
         PoolManager.Instance.ResetObject();
+
+        curTime = 0.0f;
 
         Time.timeScale = 0; // pause game
     }
